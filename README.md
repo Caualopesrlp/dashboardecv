@@ -7,15 +7,18 @@
 
 ---
 
-<img width="1351" height="767" alt="Screenshot_1" src="https://github.com/user-attachments/assets/61f4c89b-25cb-4c76-91a4-30e6aa1f725e" />
+<!-- Espaço para o GIF Animado da Aplicação em Funcionamento -->
+<div align="center">
+  <img width="100%" alt="EC Vitoria Dashboard Demo" src="https://github.com/user-attachments/assets/61f4c89b-25cb-4c76-91a4-30e6aa1f725e" />
+</div>
 
 ---
 
 ## 📌 Sobre o Projeto
 
-Este dashboard foi desenvolvido com foco o objetivo de transformar os dados brutos das partidas do Vitória em indicadores visuais, dinâmicos e acionáveis para análise esportiva.
+Este dashboard foi desenvolvido com o objetivo de transformar os dados brutos das partidas do Vitória em indicadores visuais, dinâmicos e acionáveis para análise esportiva.
 
-A solução consome a **Football-Data API v4**, processa os jogos via rotas automáticas do Artisan CLI em background e renderiza um painel executivo com métricas consolidadas, análises por mando de campo, forma recente e gráficos interativos.
+A solução consome a **Football-Data API v4**, processa e persiste os dados no banco SQLite local através de comandos automatizados no **Artisan CLI** (agendados via **Laravel Task Scheduler**) e renderiza um painel executivo com métricas consolidadas, tabela de classificação atualizada, retrospecto de confrontos diretos (H2H) e gráficos interativos.
 
 ---
 
@@ -38,18 +41,22 @@ Todo o crédito pela ideia e pela abordagem inicial vai para ele. 👏
   - Taxa de vitória e balanço detalhado de campanha (Vitórias, Empates e Derrotas).
   - Saldo de gols, total de gols marcados e sofridos.
 
+- **Tabela do Brasileirão (Standings) & H2H Recente:**
+  - **Classificação em Tempo Real:** Tabela completa do Brasileirão Série A com posição, pontos, jogos, saldos e escudos oficiais dos clubes.
+  - **Histórico de Confronto Direto (H2H):** Card do próximo confronto exibindo o retrospecto recente do Leão contra o adversário, barras de proporção de vitórias/empates/derrotas e escudos estilizados.
+
 - **Visualizações Interativas (Chart.js):**
   - **Evolução da Pontuação:** Gráfico de linha temporal com gradiente rubro-negro acumulando a pontuação rodada a rodada.
   - **Distribuição de Resultados:** Gráfico tipo *Doughnut* (rosca) com o aproveitamento percentual ao centro.
 
 - **Análise de Mando de Campo ("Onde rende mais?"):**
-  - Comparativo direto (Lado a Lado / VS) do desempenho no Barradão vs. Como Visitante.
+  - Comparativo direto (Lado a Lado / VS) do desempenho no Barradão vs. como visitante.
   - Métrica de aproveitamento, pontos somados, gols pró/contra e saldo isolado por mando.
 
 - **Indicadores Dinâmicos & Próximos Jogos:**
   - **Forma Recente:** Badges coloridas com o retrospecto das últimas 5 partidas (`V`, `E`, `D`).
   - **Gols no 2º Tempo:** Análise de poder de reação e volume de gols marcados na etapa final.
-  - **Próximas Partidas:** Seção condicional destacando os próximos confrontos, mandos e escudos atualizados dos adversários.
+  - **Próximas Partidas:** Lista cronológica dos próximos compromissos, com datas/horários convertidos para o fuso local (`America/Bahia`) ou marcados como "A definir" quando não detalhados pela CBF.
   - **Histórico Completo:** Tabela interativa com filtros em JS puro por mando de campo (*Todos*, *Em casa*, *Fora*).
 
 ---
@@ -58,18 +65,22 @@ Todo o crédito pela ideia e pela abordagem inicial vai para ele. 👏
 
 ### Backend (Laravel 11 & PHP 8.2+)
 
-- **Architecture Patterns:** Arquitetura desacoplada utilizando `Repository Pattern`, `Service Layer` e `Controller`.
-- **GoF Design Patterns:** `Adapter Pattern` (`FootballMatchAdapter`) para isolar, normalizar e converter a resposta estruturada da Football-Data API para o banco de dados interno.
-- **Background Tasks & CLI:** `Artisan Command` (`coletar:jogos`) para sincronização e resiliência dos dados das partidas.
-- **Code Style:** Padronização de código PSR-12 mantida via **Laravel Pint**.
-- **Database:** SQLite local leve e rápido.
+- **Architecture Patterns:** Arquitetura limpa e desacoplada utilizando `Repository Pattern`, `Service Layer` e `Controller`.
+- **GoF Design Patterns:**
+  - `FootballMatchAdapter`: isola, normaliza e converte partidas vindas da API externa.
+  - `FootballH2hAdapter`: mapeia e calcula estatísticas e recortes dos confrontos diretos (H2H).
+- **Background Tasks & Task Scheduling:** Comandos Artisan dedicados (`jogos:coletar`, `classificacao:coletar` e `confrontos:coletar`) orquestrados pelo **Laravel Task Scheduler** em `routes/console.php`.
+- **Centralized Configuration:** Configurações globais do Vitória (ID do time, URLs e metadados) centralizadas em `config/vitoria.php`.
+- **Automated Testing:** Suíte de testes automatizados com PHPUnit/Pest configurados com `RefreshDatabase`.
+- **Code Style:** Padronização de código PSR-12 garantida via **Laravel Pint**.
+- **Database:** SQLite local de alta performance.
 
 ### Frontend (Blade & Vanilla Web Standards)
 
 - **Blade Templating Engine:** Componentização modular sem poluição de estilos ou scripts embutidos.
-- **CSS Grid & Flexbox:** Layout responsivo customizado com paleta rubro-negra moderna.
+- **CSS Grid & Flexbox:** Layout responsivo customizado com paleta rubro-negra moderna e estilização adaptativa para dispositivos móveis.
 - **Chart.js:** Gráficos interativos renderizados via Canvas.
-- **Vanilla JavaScript:** Filtros assíncronos e manipuladores de DOM no cliente sem dependências pesadas.
+- **Vanilla JavaScript:** Filtros e manipuladores de DOM leves no cliente.
 
 ---
 
@@ -79,30 +90,41 @@ Todo o crédito pela ideia e pela abordagem inicial vai para ele. 👏
 dashboardecv/
 ├── app/
 │   ├── Adapters/
-│   │   └── FootballMatchAdapter.php    # Converte dados da API em entidades do domínio
+│   │   ├── FootballH2hAdapter.php        # Adapter para dados de confronto direto (H2H)
+│   │   └── FootballMatchAdapter.php      # Adapter para normalização das partidas
 │   ├── Console/
 │   │   └── Commands/
-│   │       └── ColetarJogos.php        # Artisan Command para automação da coleta
+│   │       ├── ColetarClassificacao.php  # Coletor da tabela de classificação
+│   │       ├── ColetarConfrontoDireto.php # Coletor de dados H2H do próximo jogo
+│   │       └── ColetarJogos.php          # Coletor das partidas do Vitória
 │   ├── Http/
 │   │   └── Controllers/
-│   │       └── DashboardController.php # Controller limpo responsável pela View
+│   │       └── DashboardController.php   # Controller principal do Dashboard
 │   ├── Repositories/
-│   │   └── JogoRepository.php          # Abstração do acesso aos dados/consultas
+│   │   ├── ClassificacaoRepository.php   # Abstração da tabela de classificação
+│   │   ├── ConfrontoDiretoRepository.php # Abstração dos dados H2H
+│   │   └── JogoRepository.php            # Abstração das partidas e busca por data
 │   └── Services/
-│       ├── DesempenhoTimeService.php   # Regras de negócio, cálculos de KPIs e análises
-│       └── FootballApiService.php      # Cliente HTTP para consumo da API externa
+│       ├── ClassificacaoService.php      # Regras da classificação
+│       ├── ConfrontoService.php          # Regras do confronto direto
+│       ├── DesempenhoTimeService.php     # Regras de negócio e cálculo de KPIs
+│       └── FootballApiService.php        # Cliente HTTP para consumo da API externa
+├── config/
+│   └── vitoria.php                       # Configurações globais e ID do clube (1782)
 ├── database/
-│   └── database.sqlite                 # Base de dados SQLite
+│   └── database.sqlite                   # Base de dados SQLite
 ├── public/
 │   ├── css/
-│   │   └── dashboard.css               # Estilização rubro-negra e componentes
+│   │   └── dashboard.css                 # Estilização rubro-negra responsiva
 │   └── js/
-│       └── dashboard.js                # Inicialização do Chart.js e filtros
+│       └── dashboard.js                  # Inicialização do Chart.js e filtros DOM
 ├── resources/
 │   └── views/
-│       └── dashboard.blade.php         # Layout principal do dashboard
-└── routes/
-    └── web.php                         # Definição das rotas web
+│       └── dashboard.blade.php           # View principal componentizada
+├── routes/
+│   ├── console.php                       # Agendamento das tarefas (Scheduler)
+│   └── web.php                           # Rotas web do sistema
+└── tests/                                # Suíte de testes automatizados
 ```
 
 ---
@@ -113,55 +135,59 @@ dashboardecv/
 
 - PHP >= 8.2
 - Composer
-- Chave de API da [Football-Data.org](https://www.football-data.org/)
+- Chave de API gratuita da [Football-Data.org](https://www.football-data.org/)
 
 ### Passo a Passo
 
 1. **Clonar o repositório:**
 
-   ```bash
+```bash
    git clone https://github.com/SEU_USUARIO/dashboardecv.git
    cd dashboardecv
-   ```
+```
 
 2. **Instalar as dependências:**
 
-   ```bash
+```bash
    composer install
-   ```
+```
 
 3. **Configurar as variáveis de ambiente:**
 
-   Copie o arquivo `.env.example` para `.env`:
-
-   ```bash
+```bash
    cp .env.example .env
-   ```
+```
 
-   Abra o `.env` e configure a sua chave da API:
+   Abra o arquivo `.env` e insira a sua chave da API:
 
-   ```env
+```env
    FOOTBALL_DATA_API_KEY=sua_chave_aqui
-   ```
+```
 
 4. **Executar as migrações do banco de dados:**
 
-   ```bash
+```bash
    php artisan migrate
-   ```
+```
 
-5. **Sincronizar os jogos do Vitória:**
+5. **Sincronizar os dados com a API** (jogos, tabela e H2H inicial):
 
-   Rode o comando Artisan para buscar os dados atualizados do Brasileirão Série A:
+```bash
+   php artisan jogos:coletar
+   php artisan classificacao:coletar
+   php artisan confrontos:coletar
+```
 
-   ```bash
-   php artisan coletar:jogos
-   ```
+6. **Rodar a suíte de testes (opcional):**
 
-6. **Iniciar o servidor local:**
+```bash
+   php artisan test
+```
 
-   ```bash
+7. **Iniciar o servidor local:**
+
+```bash
    php artisan serve
-   ```
+```
 
    Acesse a aplicação no navegador em: `http://localhost:8000`
