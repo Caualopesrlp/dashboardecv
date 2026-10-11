@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Jogo;
+use Illuminate\Database\Eloquent\Collection;
 
 class JogoRepository
 {
@@ -24,5 +25,18 @@ class JogoRepository
                 'data_jogo'         => $dados['data_jogo'],
             ]
         );
+    }
+
+    public function obterJogosFinalizados(): Collection
+    {
+        return Jogo::whereIn('status', ['FINISHED', 'PAUSED'])
+            ->whereNotNull('resultado')
+            ->orderBy('rodada', 'asc')
+            ->get();
+    }
+
+    public function obterTodosOsJogos(): Collection
+    {
+        return Jogo::orderBy('rodada', 'asc')->get();
     }
 }
