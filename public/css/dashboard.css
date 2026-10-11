@@ -777,6 +777,92 @@ tbody tr:last-child td { border-bottom: none; }
     color: var(--text-muted);
 }
 
+/* ==========================================================================
+   Classificação do Brasileirão
+   ========================================================================== */
+.classificacao-section {
+    overflow: hidden;
+}
+
+.classificacao-section .card-header-flex > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.classificacao-section .card-header-flex h2 {
+    margin: 0;
+}
+
+.classificacao-legenda {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.classificacao-destaque {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--red-light);
+    box-shadow: 0 0 8px rgba(232, 32, 40, 0.5);
+}
+
+.classificacao-table {
+    min-width: 700px;
+    font-variant-numeric: tabular-nums;
+}
+
+.classificacao-table th,
+.classificacao-table td {
+    padding: 0.7rem 0.85rem;
+}
+
+.classificacao-table th:not(:nth-child(2)),
+.classificacao-table td:not(:nth-child(2)) {
+    text-align: center;
+}
+
+.classificacao-table tbody tr {
+    border-left: 3px solid transparent;
+}
+
+.classificacao-table tbody tr.classificacao-vitoria {
+    background: var(--red-dim);
+    border-left-color: var(--red-light);
+}
+
+.classificacao-table tbody tr.classificacao-vitoria:hover {
+    background: rgba(204, 20, 24, 0.22);
+}
+
+.classificacao-posicao {
+    color: var(--text-muted);
+}
+
+.classificacao-vitoria .classificacao-posicao,
+.classificacao-pontos {
+    color: var(--red-light);
+}
+
+.classificacao-clube {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    min-width: 170px;
+    font-weight: 600;
+}
+
+.classificacao-escudo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
 /* Tabs */
 .tab-group {
     display: flex;

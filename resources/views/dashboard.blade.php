@@ -321,6 +321,69 @@
         </section>
         @endif
 
+        <!-- ===== CLASSIFICAÇÃO DO BRASILEIRÃO ===== -->
+        <section class="card classificacao-section">
+            <div class="card-header-flex">
+                <div>
+                    <h2>Classificação do Brasileirão</h2>
+                    <span class="section-sub">Série A · temporada 2026</span>
+                </div>
+                <span class="classificacao-legenda"><span class="classificacao-destaque"></span> EC Vitória</span>
+            </div>
+
+            <div class="table-responsive">
+                <table id="tabelaClassificacao" class="classificacao-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Pos.</th>
+                            <th scope="col">Clube</th>
+                            <th scope="col" title="Pontos">Pts</th>
+                            <th scope="col" title="Jogos">PJ</th>
+                            <th scope="col" title="Vitórias">V</th>
+                            <th scope="col" title="Empates">E</th>
+                            <th scope="col" title="Derrotas">D</th>
+                            <th scope="col" title="Gols pró">GP</th>
+                            <th scope="col" title="Gols contra">GC</th>
+                            <th scope="col" title="Saldo de gols">SG</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($classificacao as $time)
+                        <tr class="{{ $time['is_vitoria'] ? 'classificacao-vitoria' : '' }}">
+                            <td><strong class="classificacao-posicao">{{ $time['posicao'] }}</strong></td>
+                            <td>
+                                <div class="classificacao-clube">
+                                    @if($time['escudo'])
+                                    <img src="{{ $time['escudo'] }}"
+                                         alt=""
+                                         class="classificacao-escudo"
+                                         loading="lazy"
+                                         onerror="this.style.display='none'">
+                                    @endif
+                                    <span>{{ $time['nome'] }}</span>
+                                </div>
+                            </td>
+                            <td><strong class="classificacao-pontos">{{ $time['pontos'] }}</strong></td>
+                            <td>{{ $time['jogos'] }}</td>
+                            <td>{{ $time['vitorias'] }}</td>
+                            <td>{{ $time['empates'] }}</td>
+                            <td>{{ $time['derrotas'] }}</td>
+                            <td>{{ $time['gols_pro'] }}</td>
+                            <td>{{ $time['gols_contra'] }}</td>
+                            <td class="{{ $time['saldo'] > 0 ? 'text-win' : ($time['saldo'] < 0 ? 'text-loss' : '') }}">
+                                {{ $time['saldo'] > 0 ? '+' . $time['saldo'] : $time['saldo'] }}
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="10" class="empty-state">Classificação indisponível.</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <!-- ===== HISTÓRICO DE PARTIDAS ===== -->
         <section class="card table-section">
             <div class="card-header-flex">
