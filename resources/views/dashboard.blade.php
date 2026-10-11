@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EC Vitória — Painel de Desempenho</title>
+    <title>EC Vitória — Temporada em números</title>
     <link rel="icon" type="image/png" href="{{ config('vitoria.api_team_crest_url') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
@@ -21,9 +21,9 @@
                      class="team-logo"
                      onerror="this.style.display='none'">
                 <div class="header-text">
-                    <span class="header-competition">BRASILEIRÃO · SÉRIE A · 2026</span>
-                    <h1>Painel de Desempenho</h1>
-                    <span class="header-subtitle">Visão executiva da campanha do Vitória no campeonato</span>
+                    <span class="header-competition">BRASILEIRÃO · SÉRIE A · {{ $temporada }}</span>
+                    <h1>A trajetória do Vitória</h1>
+                    <span class="header-subtitle">Resultados, estatísticas e próximos desafios da Série A</span>
                 </div>
             </div>
             <div class="header-meta">
@@ -383,7 +383,7 @@
             <div class="card-header-flex">
                 <div>
                     <h2>Classificação do Brasileirão</h2>
-                    <span class="section-sub">Série A · temporada 2026</span>
+                    <span class="section-sub">Série A · temporada {{ $temporada }}</span>
                 </div>
                 <span class="classificacao-legenda"><span class="classificacao-destaque"></span> EC Vitória</span>
             </div>

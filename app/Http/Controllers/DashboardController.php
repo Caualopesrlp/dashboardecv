@@ -22,6 +22,7 @@ class DashboardController extends Controller
 
         $jogos = $todosJogos->whereIn('status', ['FINISHED', 'PAUSED'])->sortByDesc('rodada');
         $proximosJogos = $this->jogoRepository->obterProximosJogos();
+        $temporada = now('America/Bahia')->year;
 
         $proximoJogo = $proximosJogos->first();
         $confronto = $this->confrontoService->obterH2hProximoJogo($proximoJogo?->match_id);
@@ -34,6 +35,7 @@ class DashboardController extends Controller
             'resumo' => $this->desempenhoService->obterResumoDashboard(),
             'jogos' => $jogos,
             'proximosJogos' => $proximosJogos,
+            'temporada' => $temporada,
             'classificacao' => $this->classificacaoService->obterTabelaClassificacao(),
             'confronto' => $confronto,
         ]);
