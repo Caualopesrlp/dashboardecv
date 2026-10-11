@@ -25,6 +25,14 @@ class ConfrontoService
             return null;
         }
 
+        $totalResultados = (int) $confronto->vitorias
+            + (int) $confronto->empates
+            + (int) $confronto->derrotas;
+
+        if ($totalResultados !== (int) $confronto->total_jogos) {
+            return null;
+        }
+
         return [
             'adversario_nome' => $confronto->adversario_nome,
             'total_jogos' => $confronto->total_jogos,

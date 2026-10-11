@@ -295,6 +295,10 @@
             <h2>Próximas Partidas</h2>
             <div class="proximos-list">
                 @foreach($proximosJogos as $jogo)
+                @php
+                    $timezoneDataJogo = $jogo->status === 'SCHEDULED' ? 'UTC' : 'America/Bahia';
+                    $dataExibicaoJogo = $jogo->data_jogo->copy()->setTimezone($timezoneDataJogo);
+                @endphp
                 <div class="proximo-item">
                     <span class="proximo-rodada">R{{ $jogo->rodada }}</span>
                     <div class="proximo-match">
@@ -302,7 +306,7 @@
                              alt="Vitória"
                              class="proximo-crest"
                              onerror="this.style.display='none'">
-                        <span class="proximo-vs">{{ $jogo->mando === 'CASA' ? 'vs' : 'em' }}</span>
+                        <span class="proximo-vs">VS</span>
                         @if($jogo->adversario_escudo)
                         <img src="{{ $jogo->adversario_escudo }}"
                              alt="{{ $jogo->adversario }}"
@@ -314,7 +318,10 @@
                     <span class="badge-mando {{ strtolower($jogo->mando) }}">
                         {{ $jogo->mando === 'CASA' ? 'Casa' : 'Fora' }}
                     </span>
-                    <span class="proximo-data">{{ $jogo->data_jogo->format('d/m · H:i') }}</span>
+                    <span class="proximo-data">
+                        {{ $dataExibicaoJogo->format('d/m') }} ·
+                        {{ $jogo->status === 'SCHEDULED' ? 'A definir' : $dataExibicaoJogo->format('H:i') }}
+                    </span>
                 </div>
                 @endforeach
             </div>
@@ -323,10 +330,25 @@
             <div class="h2h-card">
                 <div class="h2h-heading">
                     <div>
-                        <h3>Confronto direto</h3>
-                        <p class="h2h-opponent">Histórico contra <strong>{{ $confronto['adversario_nome'] }}</strong></p>
+                        <div class="h2h-title">
+                            <img src="https://crests.football-data.org/1782.png"
+                                 alt="Escudo do EC Vitória"
+                                 class="h2h-crest"
+                                 onerror="this.style.display='none'">
+                            <h3>Confronto direto</h3>
+                            @if (!empty($confronto['adversario_escudo']))
+                            <img src="{{ $confronto['adversario_escudo'] }}"
+                                 alt="Escudo do {{ $confronto['adversario_nome'] }}"
+                                 class="h2h-crest"
+                                 loading="lazy"
+                                 onerror="this.style.display='none'">
+                            @endif
+                        </div>
+                        <p class="h2h-opponent">Retrospecto recente contra <strong>{{ $confronto['adversario_nome'] }}</strong></p>
                     </div>
-                    <span class="h2h-total">{{ $confronto['total_jogos'] }} {{ $confronto['total_jogos'] === 1 ? 'partida' : 'partidas' }}</span>
+                    <span class="h2h-total">
+                        {{ $confronto['total_jogos'] === 1 ? 'Último confronto' : 'Últimos '.$confronto['total_jogos'].' confrontos' }}
+                    </span>
                 </div>
 
                 <div class="h2h-stats">
@@ -447,7 +469,7 @@
                         @forelse($jogos as $jogo)
                         <tr data-mando="{{ strtolower($jogo->mando) }}">
                             <td><strong class="rodada-num">R{{ $jogo->rodada }}</strong></td>
-                            <td class="text-muted">{{ $jogo->data_jogo->format('d/m') }}</td>
+                            <td class="text-muted">{{ $jogo->data_jogo->copy()->setTimezone('America/Bahia')->format('d/m') }}</td>
                             <td>
                                 <span class="badge-mando {{ strtolower($jogo->mando) }}">
                                     {{ $jogo->mando === 'CASA' ? 'Casa' : 'Fora' }}

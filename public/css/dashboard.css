@@ -698,8 +698,10 @@ body {
 .proximo-data {
     font-size: 0.8rem;
     color: var(--text-muted);
+    width: 8rem;
     flex-shrink: 0;
     white-space: nowrap;
+    text-align: right;
 }
 
 /* H2H styles */
@@ -722,7 +724,21 @@ body {
 .h2h-heading h3 {
     font-size: 0.95rem;
     font-weight: 800;
+    margin-bottom: 0;
+}
+
+.h2h-title {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
     margin-bottom: 0.2rem;
+}
+
+.h2h-crest {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    flex: 0 0 auto;
 }
 
 .h2h-opponent {

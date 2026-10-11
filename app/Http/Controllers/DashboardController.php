@@ -24,13 +24,18 @@ class DashboardController extends Controller
         $proximosJogos = $todosJogos->whereNotIn('status', ['FINISHED', 'PAUSED'])->sortBy('rodada')->take(5);
 
         $proximoJogo = $proximosJogos->first();
+        $confronto = $this->confrontoService->obterH2hProximoJogo($proximoJogo?->match_id);
+
+        if ($confronto && $proximoJogo) {
+            $confronto['adversario_escudo'] = $proximoJogo->adversario_escudo;
+        }
 
         return view('dashboard', [
             'resumo' => $this->desempenhoService->obterResumoDashboard(),
             'jogos' => $jogos,
             'proximosJogos' => $proximosJogos,
             'classificacao' => $this->classificacaoService->obterTabelaClassificacao(),
-            'confronto' => $this->confrontoService->obterH2hProximoJogo($proximoJogo?->match_id),
+            'confronto' => $confronto,
         ]);
     }
 }

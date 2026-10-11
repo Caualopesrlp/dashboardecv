@@ -55,6 +55,6 @@ class FootballApiService
             throw new Exception('Falha ao comunicar com a API do Football-Data: '.$response->status());
         }
 
-        return $response->json()['aggregates'] ?? [];
+        return $response->json() ?? [];
     }
 }

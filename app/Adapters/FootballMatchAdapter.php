@@ -2,6 +2,8 @@
 
 namespace App\Adapters;
 
+use Carbon\CarbonImmutable;
+
 class FootballMatchAdapter
 {
     public function adaptar(array $dados): array
@@ -50,7 +52,9 @@ class FootballMatchAdapter
             'gols_contra_total' => $golsContraTotal,
             'resultado' => $resultado,
             'status' => $status,
-            'data_jogo' => $dados['utcDate'],
+            'data_jogo' => CarbonImmutable::parse($dados['utcDate'])
+                ->utc()
+                ->toDateTimeString(),
         ];
     }
 }
