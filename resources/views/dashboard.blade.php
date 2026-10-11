@@ -318,6 +318,41 @@
                 </div>
                 @endforeach
             </div>
+
+            @if ($confronto)
+            <div class="h2h-card">
+                <div class="h2h-heading">
+                    <div>
+                        <h3>Confronto direto</h3>
+                        <p class="h2h-opponent">Histórico contra <strong>{{ $confronto['adversario_nome'] }}</strong></p>
+                    </div>
+                    <span class="h2h-total">{{ $confronto['total_jogos'] }} {{ $confronto['total_jogos'] === 1 ? 'partida' : 'partidas' }}</span>
+                </div>
+
+                <div class="h2h-stats">
+                    <div class="h2h-stat vitorias">
+                        <strong>{{ $confronto['vitorias'] }}</strong>
+                        <span>Vitórias do Leão</span>
+                    </div>
+                    <div class="h2h-stat empates">
+                        <strong>{{ $confronto['empates'] }}</strong>
+                        <span>Empates</span>
+                    </div>
+                    <div class="h2h-stat derrotas">
+                        <strong>{{ $confronto['derrotas'] }}</strong>
+                        <span>Derrotas</span>
+                    </div>
+                </div>
+
+                @if ($confronto['total_jogos'] > 0)
+                <div class="h2h-bar" role="img" aria-label="{{ $confronto['vitorias'] }} vitórias do Vitória, {{ $confronto['empates'] }} empates e {{ $confronto['derrotas'] }} derrotas">
+                    <span class="h2h-bar-vitorias" style="width: {{ ($confronto['vitorias'] / $confronto['total_jogos']) * 100 }}%"></span>
+                    <span class="h2h-bar-empates" style="width: {{ ($confronto['empates'] / $confronto['total_jogos']) * 100 }}%"></span>
+                    <span class="h2h-bar-derrotas" style="width: {{ ($confronto['derrotas'] / $confronto['total_jogos']) * 100 }}%"></span>
+                </div>
+                @endif
+            </div>
+            @endif
         </section>
         @endif
 

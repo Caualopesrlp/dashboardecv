@@ -44,4 +44,17 @@ class FootballApiService
 
         return $response->json()['standings'][0]['table'] ?? [];
     }
+
+    public function buscarConfrontoDireto(int $matchId): array
+    {
+        $response = Http::withHeaders([
+            'X-Auth-Token' => $this->apiKey,
+        ])->get("{$this->baseUrl}/matches/{$matchId}/head2head");
+
+        if ($response->failed()) {
+            throw new Exception('Falha ao comunicar com a API do Football-Data: '.$response->status());
+        }
+
+        return $response->json()['aggregates'] ?? [];
+    }
 }

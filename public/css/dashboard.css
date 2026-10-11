@@ -702,6 +702,111 @@ body {
     white-space: nowrap;
 }
 
+/* H2H styles */
+.h2h-card {
+    margin-top: 1.2rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--red-dim), var(--surface) 58%);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+}
+
+.h2h-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.85rem;
+}
+
+.h2h-heading h3 {
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin-bottom: 0.2rem;
+}
+
+.h2h-opponent {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.h2h-opponent strong {
+    color: var(--text);
+}
+
+.h2h-total {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+.h2h-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.65rem;
+}
+
+.h2h-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+    padding: 0.65rem 0.8rem;
+    background: rgba(12, 12, 16, 0.58);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+}
+
+.h2h-stat strong {
+    font-size: 1.25rem;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+.h2h-stat span {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.h2h-stat.vitorias strong {
+    color: var(--red-light);
+}
+
+.h2h-stat.empates strong {
+    color: var(--text-muted);
+}
+
+.h2h-stat.derrotas strong {
+    color: #A77A80;
+}
+
+.h2h-bar {
+    display: flex;
+    width: 100%;
+    height: 8px;
+    margin-top: 0.8rem;
+    overflow: hidden;
+    background: var(--border);
+    border-radius: 999px;
+}
+
+.h2h-bar span {
+    height: 100%;
+}
+
+.h2h-bar-vitorias {
+    background: var(--red-light);
+}
+
+.h2h-bar-empates {
+    background: #777784;
+}
+
+.h2h-bar-derrotas {
+    background: #65434A;
+}
+
 /* ==========================================================================
    Tabela de Histórico
    ========================================================================== */
@@ -1149,5 +1254,29 @@ tbody tr:last-child td { border-bottom: none; }
 
     .badge-mando {
         order: 1;
+    }
+
+    .h2h-heading {
+        gap: 0.5rem;
+    }
+
+    .h2h-stats {
+        grid-template-columns: 1fr;
+        gap: 0.45rem;
+    }
+
+    .h2h-stat {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.55rem 0.7rem;
+    }
+
+    .h2h-stat strong {
+        order: 1;
+    }
+
+    .h2h-stat span {
+        font-size: 0.7rem;
     }
 }

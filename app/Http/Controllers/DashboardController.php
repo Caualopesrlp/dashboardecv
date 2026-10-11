@@ -4,25 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Repositories\JogoRepository;
 use App\Services\ClassificacaoService;
+use App\Services\ConfrontoService;
 use App\Services\DesempenhoTimeService;
 
 class DashboardController extends Controller
 {
-    public function index(DesempenhoTimeService $service, JogoRepository $repository, ClassificacaoService $serviceClassificacao)
-    {
-        $resumo = $service->obterResumoDashboard();
+    public function __construct(
+        private DesempenhoTimeService $desempenhoService,
+        private JogoRepository $jogoRepository,
+        private ClassificacaoService $classificacaoService,
+        private ConfrontoService $confrontoService
+    ) {}
 
-        $todosJogos = $repository->obterTodosOsJogos();
+    public function index()
+    {
+        $todosJogos = $this->jogoRepository->obterTodosOsJogos();
+
         $jogos = $todosJogos->whereIn('status', ['FINISHED', 'PAUSED'])->sortByDesc('rodada');
         $proximosJogos = $todosJogos->whereNotIn('status', ['FINISHED', 'PAUSED'])->sortBy('rodada')->take(5);
 
-        $classificacao = $serviceClassificacao->obterTabelaClassificacao();
+        $proximoJogo = $proximosJogos->first();
 
         return view('dashboard', [
-            'resumo' => $resumo,
+            'resumo' => $this->desempenhoService->obterResumoDashboard(),
             'jogos' => $jogos,
             'proximosJogos' => $proximosJogos,
-            'classificacao' => $classificacao,
+            'classificacao' => $this->classificacaoService->obterTabelaClassificacao(),
+            'confronto' => $this->confrontoService->obterH2hProximoJogo($proximoJogo?->match_id),
         ]);
     }
 }
