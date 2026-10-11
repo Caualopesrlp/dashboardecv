@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Repositories\JogoRepository;
 use App\Services\DesempenhoTimeService;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -12,13 +11,13 @@ class DashboardController extends Controller
     {
         $resumo = $service->obterResumoDashboard();
 
-        $todosJogos    = $repository->obterTodosOsJogos();
-        $jogos         = $todosJogos->whereIn('status', ['FINISHED', 'PAUSED'])->sortByDesc('rodada');
+        $todosJogos = $repository->obterTodosOsJogos();
+        $jogos = $todosJogos->whereIn('status', ['FINISHED', 'PAUSED'])->sortByDesc('rodada');
         $proximosJogos = $todosJogos->whereNotIn('status', ['FINISHED', 'PAUSED'])->sortBy('rodada')->take(5);
 
         return view('dashboard', [
-            'resumo'        => $resumo,
-            'jogos'         => $jogos,
+            'resumo' => $resumo,
+            'jogos' => $jogos,
             'proximosJogos' => $proximosJogos,
         ]);
     }

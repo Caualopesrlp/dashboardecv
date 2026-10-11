@@ -39,18 +39,18 @@ class FootballMatchAdapter
         }
 
         return [
-            'match_id'          => $dados['id'],
-            'rodada'            => $dados['matchday'],
-            'adversario'        => $adversario,
+            'match_id' => $dados['id'],
+            'rodada' => $dados['matchday'],
+            'adversario' => $adversario,
             'adversario_escudo' => $adversarioEscudo,
-            'mando'             => $mando,
-            'gols_pro_1t'       => $golsPro1t,
-            'gols_contra_1t'    => $golsContra1t,
-            'gols_pro_total'    => $golsProTotal,
+            'mando' => $mando,
+            'gols_pro_1t' => $golsPro1t,
+            'gols_contra_1t' => $golsContra1t,
+            'gols_pro_total' => $golsProTotal,
             'gols_contra_total' => $golsContraTotal,
-            'resultado'         => $resultado,
-            'status'            => $status,
-            'data_jogo'         => $dados['utcDate'],
+            'resultado' => $resultado,
+            'status' => $status,
+            'data_jogo' => $dados['utcDate'],
         ];
     }
 }

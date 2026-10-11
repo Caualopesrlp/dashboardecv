@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Http;
 class FootballApiService
 {
     private string $apiKey;
+
     private string $baseUrl;
+
     private int $vitoriaId = 1782;
 
     public function __construct()
@@ -23,7 +25,7 @@ class FootballApiService
         ])->get("{$this->baseUrl}/teams/{$this->vitoriaId}/matches");
 
         if ($response->failed()) {
-            throw new \Exception('Falha ao comunicar com a API do Football-Data: ' . $response->status());
+            throw new \Exception('Falha ao comunicar com a API do Football-Data: '.$response->status());
         }
 
         return $response->json()['matches'] ?? [];

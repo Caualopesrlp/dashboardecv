@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Adapters\FootballMatchAdapter;
 use App\Repositories\JogoRepository;
 use App\Services\FootballApiService;
-use App\Adapters\FootballMatchAdapter;
 use Illuminate\Console\Command;
 
 class ColetarJogos extends Command
@@ -42,7 +42,7 @@ class ColetarJogos extends Command
 
             $this->info('Todos os jogos do Vitória foram atualizados com sucesso no banco!');
         } catch (\Exception $e) {
-            $this->error('Aviso: Não foi possível atualizar os dados via API. Erro: ' . $e->getMessage());
+            $this->error('Aviso: Não foi possível atualizar os dados via API. Erro: '.$e->getMessage());
             $this->warn('O banco de dados manteve a versão anterior dos jogos com segurança.');
         }
 

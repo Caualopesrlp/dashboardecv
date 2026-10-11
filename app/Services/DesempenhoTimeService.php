@@ -19,10 +19,10 @@ class DesempenhoTimeService
         $jogos = $this->repository->obterJogosFinalizados();
 
         return [
-            'kpis'          => $this->calcularKpisGerais($jogos),
-            'mando'         => $this->calcularDesempenhoMando($jogos),
+            'kpis' => $this->calcularKpisGerais($jogos),
+            'mando' => $this->calcularDesempenhoMando($jogos),
             'segundo_tempo' => $this->calcularAnalise2Tempo($jogos),
-            'grafico'       => $this->montarDadosGraficoEvolucao($jogos),
+            'grafico' => $this->montarDadosGraficoEvolucao($jogos),
             'forma_recente' => $this->calcularFormaRecente($jogos),
         ];
     }
@@ -30,32 +30,32 @@ class DesempenhoTimeService
     private function calcularKpisGerais(Collection $jogos): array
     {
         $vitorias = $this->contarPorResultado($jogos, 'V');
-        $empates  = $this->contarPorResultado($jogos, 'E');
+        $empates = $this->contarPorResultado($jogos, 'E');
         $derrotas = $this->contarPorResultado($jogos, 'D');
 
         $quantidadejogos = $jogos->count();
-        $pontos          = $this->calcularPontos($vitorias, $empates);
-        $aproveitamento  = $this->calcularAproveitamento($pontos, $quantidadejogos);
+        $pontos = $this->calcularPontos($vitorias, $empates);
+        $aproveitamento = $this->calcularAproveitamento($pontos, $quantidadejogos);
 
-        $golsPro    = $jogos->sum('gols_pro_total');
+        $golsPro = $jogos->sum('gols_pro_total');
         $golsContra = $jogos->sum('gols_contra_total');
-        $saldo      = $golsPro - $golsContra;
+        $saldo = $golsPro - $golsContra;
 
         $taxaVitoria = $quantidadejogos > 0 ? round(($vitorias / $quantidadejogos) * 100, 1) : 0.0;
         $mediaPontos = $quantidadejogos > 0 ? round($pontos / $quantidadejogos, 2) : 0.0;
 
         return [
-            'vitorias'        => $vitorias,
-            'empates'         => $empates,
-            'derrotas'        => $derrotas,
+            'vitorias' => $vitorias,
+            'empates' => $empates,
+            'derrotas' => $derrotas,
             'quantidadeJogos' => $quantidadejogos,
-            'pontos'          => $pontos,
-            'aproveitamento'  => round($aproveitamento, 1),
-            'golsPro'         => $golsPro,
-            'golsContra'      => $golsContra,
-            'saldo'           => $saldo,
-            'taxaVitoria'     => $taxaVitoria,
-            'mediaPontos'     => $mediaPontos,
+            'pontos' => $pontos,
+            'aproveitamento' => round($aproveitamento, 1),
+            'golsPro' => $golsPro,
+            'golsContra' => $golsContra,
+            'saldo' => $saldo,
+            'taxaVitoria' => $taxaVitoria,
+            'mediaPontos' => $mediaPontos,
         ];
     }
 
@@ -65,45 +65,45 @@ class DesempenhoTimeService
         $desempenhoFora = $jogos->where('mando', 'FORA');
 
         $vitoriasCasa = $this->contarPorResultado($desempenhoCasa, 'V');
-        $empatesCasa  = $this->contarPorResultado($desempenhoCasa, 'E');
+        $empatesCasa = $this->contarPorResultado($desempenhoCasa, 'E');
         $derrotasCasa = $this->contarPorResultado($desempenhoCasa, 'D');
-        $pontosCasa   = $this->calcularPontos($vitoriasCasa, $empatesCasa);
+        $pontosCasa = $this->calcularPontos($vitoriasCasa, $empatesCasa);
         $aproveitamentoCasa = $this->calcularAproveitamento($pontosCasa, $desempenhoCasa->count());
 
-        $golsProCasa    = $desempenhoCasa->sum('gols_pro_total');
+        $golsProCasa = $desempenhoCasa->sum('gols_pro_total');
         $golsContraCasa = $desempenhoCasa->sum('gols_contra_total');
 
         $vitoriasFora = $this->contarPorResultado($desempenhoFora, 'V');
-        $empatesFora  = $this->contarPorResultado($desempenhoFora, 'E');
+        $empatesFora = $this->contarPorResultado($desempenhoFora, 'E');
         $derrotasFora = $this->contarPorResultado($desempenhoFora, 'D');
-        $pontosFora   = $this->calcularPontos($vitoriasFora, $empatesFora);
+        $pontosFora = $this->calcularPontos($vitoriasFora, $empatesFora);
         $aproveitamentoFora = $this->calcularAproveitamento($pontosFora, $desempenhoFora->count());
 
-        $golsProFora    = $desempenhoFora->sum('gols_pro_total');
+        $golsProFora = $desempenhoFora->sum('gols_pro_total');
         $golsContraFora = $desempenhoFora->sum('gols_contra_total');
 
         return [
             'casa' => [
-                'jogos'          => $desempenhoCasa->count(),
-                'pontos'         => $pontosCasa,
+                'jogos' => $desempenhoCasa->count(),
+                'pontos' => $pontosCasa,
                 'aproveitamento' => round($aproveitamentoCasa, 1),
-                'vitorias'       => $vitoriasCasa,
-                'empates'        => $empatesCasa,
-                'derrotas'       => $derrotasCasa,
-                'golsPro'        => $golsProCasa,
-                'golsContra'     => $golsContraCasa,
-                'saldo'          => $golsProCasa - $golsContraCasa,
+                'vitorias' => $vitoriasCasa,
+                'empates' => $empatesCasa,
+                'derrotas' => $derrotasCasa,
+                'golsPro' => $golsProCasa,
+                'golsContra' => $golsContraCasa,
+                'saldo' => $golsProCasa - $golsContraCasa,
             ],
             'fora' => [
-                'jogos'          => $desempenhoFora->count(),
-                'pontos'         => $pontosFora,
+                'jogos' => $desempenhoFora->count(),
+                'pontos' => $pontosFora,
                 'aproveitamento' => round($aproveitamentoFora, 1),
-                'vitorias'       => $vitoriasFora,
-                'empates'        => $empatesFora,
-                'derrotas'       => $derrotasFora,
-                'golsPro'        => $golsProFora,
-                'golsContra'     => $golsContraFora,
-                'saldo'          => $golsProFora - $golsContraFora,
+                'vitorias' => $vitoriasFora,
+                'empates' => $empatesFora,
+                'derrotas' => $derrotasFora,
+                'golsPro' => $golsProFora,
+                'golsContra' => $golsContraFora,
+                'saldo' => $golsProFora - $golsContraFora,
             ],
         ];
     }
@@ -121,7 +121,7 @@ class DesempenhoTimeService
             : 0.0;
 
         return [
-            'gols_2t'            => $gols2t,
+            'gols_2t' => $gols2t,
             'percentual_gols_2t' => round($percentual2t, 1),
         ];
     }
