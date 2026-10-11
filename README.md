@@ -7,10 +7,11 @@
 
 ---
 
-<!-- Espaço para o GIF Animado da Aplicação em Funcionamento -->
+<!-- GIF Animado do Dashboard em Funcionamento -->
 <div align="center">
-  <img width="100%" alt="EC Vitoria Dashboard Demo" src="https://github.com/user-attachments/assets/61f4c89b-25cb-4c76-91a4-30e6aa1f725e" />
+  <img width="100%" alt="EC Vitória Dashboard Demo" src="https://github.com/user-attachments/assets/8336ed85-2970-4a1b-b0e2-da6bd179f92e" />
 </div>
+
 
 ---
 
