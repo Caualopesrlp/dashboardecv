@@ -11,12 +11,13 @@ class FootballApiService
 
     private string $baseUrl;
 
-    private int $vitoriaId = 1782;
+    private int $vitoriaId;
 
     public function __construct()
     {
-        $this->apiKey = env('FOOTBALL_DATA_API_KEY');
+        $this->apiKey = config('services.football_data.api_key');
         $this->baseUrl = 'https://api.football-data.org/v4';
+        $this->vitoriaId = (int) config('vitoria.api_team_id');
     }
 
     public function buscarPartidas(): array

@@ -29,7 +29,7 @@ class ClassificacaoService
                 'gols_pro' => $time->gols_pro,
                 'gols_contra' => $time->gols_contra,
                 'saldo' => $time->saldo,
-                'is_vitoria' => $time->time_id === 1782,
+                'is_vitoria' => (int) $time->time_id === (int) config('vitoria.api_team_id'),
             ];
         })->all();
     }

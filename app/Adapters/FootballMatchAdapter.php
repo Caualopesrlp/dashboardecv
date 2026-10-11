@@ -8,7 +8,7 @@ class FootballMatchAdapter
 {
     public function adaptar(array $dados): array
     {
-        $isHome = ($dados['homeTeam']['id'] == 1782);
+        $isHome = (int) ($dados['homeTeam']['id'] ?? 0) === (int) config('vitoria.api_team_id');
 
         $mando = $isHome ? 'CASA' : 'FORA';
         $adversario = $isHome ? $dados['awayTeam']['shortName'] : $dados['homeTeam']['shortName'];

@@ -21,7 +21,7 @@ class DashboardController extends Controller
         $todosJogos = $this->jogoRepository->obterTodosOsJogos();
 
         $jogos = $todosJogos->whereIn('status', ['FINISHED', 'PAUSED'])->sortByDesc('rodada');
-        $proximosJogos = $todosJogos->whereNotIn('status', ['FINISHED', 'PAUSED'])->sortBy('rodada')->take(5);
+        $proximosJogos = $this->jogoRepository->obterProximosJogos();
 
         $proximoJogo = $proximosJogos->first();
         $confronto = $this->confrontoService->obterH2hProximoJogo($proximoJogo?->match_id);

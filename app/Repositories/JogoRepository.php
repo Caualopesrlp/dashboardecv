@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class JogoRepository
 {
+    private const STATUS_JOGOS_FUTUROS = ['SCHEDULED', 'TIMED'];
+
     public function salvarOuAtualizarPartida(array $dados): Jogo
     {
         return Jogo::updateOrCreate(
@@ -38,5 +40,14 @@ class JogoRepository
     public function obterTodosOsJogos(): Collection
     {
         return Jogo::orderBy('rodada', 'asc')->get();
+    }
+
+    public function obterProximosJogos(int $limite = 5): Collection
+    {
+        return Jogo::whereIn('status', self::STATUS_JOGOS_FUTUROS)
+            ->orderBy('data_jogo', 'asc')
+            ->orderBy('rodada', 'asc')
+            ->limit($limite)
+            ->get();
     }
 }

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EC Vitória — Painel de Desempenho</title>
-    <link rel="icon" type="image/png" href="https://crests.football-data.org/1782.png">
+    <link rel="icon" type="image/png" href="{{ config('vitoria.api_team_crest_url') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 </head>
@@ -16,7 +16,7 @@
     <header class="header">
         <div class="container header-content">
             <div class="header-brand">
-                <img src="https://crests.football-data.org/1782.png"
+                <img src="{{ config('vitoria.api_team_crest_url') }}"
                      alt="EC Vitória"
                      class="team-logo"
                      onerror="this.style.display='none'">
@@ -187,7 +187,7 @@
                 <div class="card mando-card">
                     <div class="mando-top">
                         <div class="mando-identity">
-                            <img src="https://crests.football-data.org/1782.png"
+                            <img src="{{ config('vitoria.api_team_crest_url') }}"
                                  alt="Vitória"
                                  class="mando-logo"
                                  onerror="this.style.display='none'">
@@ -240,7 +240,7 @@
                 <div class="card mando-card">
                     <div class="mando-top">
                         <div class="mando-identity">
-                            <img src="https://crests.football-data.org/1782.png"
+                            <img src="{{ config('vitoria.api_team_crest_url') }}"
                                  alt="Vitória"
                                  class="mando-logo mando-logo-away"
                                  onerror="this.style.display='none'">
@@ -302,7 +302,7 @@
                 <div class="proximo-item">
                     <span class="proximo-rodada">R{{ $jogo->rodada }}</span>
                     <div class="proximo-match">
-                        <img src="https://crests.football-data.org/1782.png"
+                        <img src="{{ config('vitoria.api_team_crest_url') }}"
                              alt="Vitória"
                              class="proximo-crest"
                              onerror="this.style.display='none'">
@@ -331,7 +331,7 @@
                 <div class="h2h-heading">
                     <div>
                         <div class="h2h-title">
-                            <img src="https://crests.football-data.org/1782.png"
+                            <img src="{{ config('vitoria.api_team_crest_url') }}"
                                  alt="Escudo do EC Vitória"
                                  class="h2h-crest"
                                  onerror="this.style.display='none'">
