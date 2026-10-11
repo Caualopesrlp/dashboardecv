@@ -1,0 +1,229 @@
+/* ==========================================================================
+   Variáveis & Paleta Rubro-Negra (EC Vitória)
+   ========================================================================== */
+:root {
+    --primary-red: #8B0000;
+    --primary-red-hover: #A50000;
+    --dark-bg: #0F0F12;
+    --card-bg: #1A1A1E;
+    --text-main: #F1F1F1;
+    --text-muted: #A0A0A0;
+    --border-color: #2D2D32;
+
+    /* Status Colors */
+    --win-color: #2E7D32;
+    --draw-color: #F57C00;
+    --loss-color: #C62828;
+    --pending-color: #424242;
+}
+
+/* ==========================================================================
+   Reset & Base
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-main);
+    line-height: 1.5;
+    padding-bottom: 3rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* ==========================================================================
+   Header / Hero
+   ========================================================================== */
+.header {
+    background-color: #050505;
+    border-bottom: 2px solid var(--primary-red);
+    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.badge {
+    background-color: var(--primary-red);
+    color: #FFF;
+    padding: 0.35rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Cards & Layout Base
+   ========================================================================== */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+    border-left: 3px solid var(--primary-red);
+    padding-left: 0.5rem;
+}
+
+.card h3 {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   Grid de KPIs
+   ========================================================================== */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.card-highlight {
+    border-top: 3px solid var(--primary-red);
+}
+
+.kpi-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #FFF;
+    margin-bottom: 0.25rem;
+}
+
+.kpi-subvalue {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.card span {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Seção do Gráfico
+   ========================================================================== */
+.chart-section {
+    margin-bottom: 2rem;
+}
+
+.chart-container {
+    position: relative;
+    height: 350px;
+    width: 100%;
+}
+
+/* ==========================================================================
+   Tabela Geral de Jogos
+   ========================================================================== */
+.table-section {
+    overflow: hidden;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+th, td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background-color: #121215;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+tbody tr:hover {
+    background-color: #222228;
+}
+
+/* Badges da Tabela */
+.badge-mando {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.badge-mando.casa {
+    background-color: #2B1D1D;
+    color: #FF6B6B;
+    border: 1px solid #5A2A2A;
+}
+
+.badge-mando.fora {
+    background-color: #1D222B;
+    color: #6BA4FF;
+    border: 1px solid #2A3F5A;
+}
+
+.badge-res {
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #FFF;
+    display: inline-block;
+}
+
+.badge-res.v { background-color: var(--win-color); }
+.badge-res.e { background-color: var(--draw-color); }
+.badge-res.d { background-color: var(--loss-color); }
+.badge-res.pendente { background-color: var(--pending-color); }
+
+/* ==========================================================================
+   Responsividade
+   ========================================================================== */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .kpi-grid {
+        grid-template-columns: 1fr;
+    }
+}
