@@ -2,40 +2,38 @@
    Variáveis & Paleta Rubro-Negra — EC Vitória
    ========================================================================== */
 :root {
-    --red: #CC1418;
-    --red-light: #E82028;
-    --red-dim: rgba(204, 20, 24, 0.15);
+    --red:          #CC1418;
+    --red-light:    #E82028;
+    --red-dim:      rgba(204, 20, 24, 0.15);
 
-    --bg: #0C0C10;
-    --surface: #131318;
-    --card: #17171E;
-    --card-hover: #1E1E27;
-    --border: #23232E;
+    --bg:           #0C0C10;
+    --surface:      #131318;
+    --card:         #17171E;
+    --card-hover:   #1E1E27;
+    --border:       #23232E;
     --border-light: #2C2C3A;
 
-    --text: #EBEBF0;
-    --text-muted: #7A7A8A;
-    --text-dim: #4A4A5A;
+    --text:         #EBEBF0;
+    --text-muted:   #7A7A8A;
+    --text-dim:     #4A4A5A;
 
-    --win: #16A34A;
-    --win-bg: rgba(22, 163, 74, 0.15);
-    --draw: #D97706;
-    --draw-bg: rgba(217, 119, 6, 0.15);
-    --loss: #DC2626;
-    --loss-bg: rgba(220, 38, 38, 0.15);
+    --win:          #16A34A;
+    --win-bg:       rgba(22, 163, 74, 0.15);
+    --draw:         #D97706;
+    --draw-bg:      rgba(217, 119, 6, 0.15);
+    --loss:         #DC2626;
+    --loss-bg:      rgba(220, 38, 38, 0.15);
 
-    --radius: 12px;
-    --radius-sm: 8px;
-    --shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
-    --gap: 1.25rem;
+    --radius:       12px;
+    --radius-sm:    8px;
+    --shadow:       0 2px 16px rgba(0, 0, 0, 0.5);
+    --gap:          1.25rem;
 }
 
 /* ==========================================================================
    Reset & Base
    ========================================================================== */
-*,
-*::before,
-*::after {
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -48,10 +46,12 @@ body {
     line-height: 1.5;
     padding-bottom: 4rem;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
 }
 
 .container {
     max-width: 1260px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 1.5rem;
 }
@@ -84,18 +84,20 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .header-brand {
     display: flex;
     align-items: center;
     gap: 1rem;
+    min-width: 0;
 }
 
 .team-logo {
     width: 56px;
     height: 56px;
+    flex-shrink: 0;
     object-fit: contain;
     filter: drop-shadow(0 0 12px rgba(204, 20, 24, 0.4));
 }
@@ -103,7 +105,8 @@ body {
 .header-text {
     display: flex;
     flex-direction: column;
-    gap: 0.1rem;
+    gap: 0.15rem;
+    min-width: 0;
 }
 
 .header-competition {
@@ -112,6 +115,9 @@ body {
     letter-spacing: 1.5px;
     color: var(--red);
     text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .header-text h1 {
@@ -119,6 +125,7 @@ body {
     font-weight: 800;
     color: var(--text);
     letter-spacing: -0.4px;
+    line-height: 1.2;
 }
 
 .header-subtitle {
@@ -134,6 +141,7 @@ body {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 0.75rem 1.25rem;
+    flex-shrink: 0;
 }
 
 .meta-item {
@@ -149,6 +157,7 @@ body {
     letter-spacing: 1px;
     color: var(--text-muted);
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .meta-value {
@@ -186,6 +195,7 @@ body {
     border-radius: var(--radius);
     padding: 1.4rem;
     box-shadow: var(--shadow);
+    min-width: 0;
 }
 
 .card h2 {
@@ -201,6 +211,7 @@ body {
     justify-content: space-between;
     margin-bottom: 1rem;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .card-header-flex h2 {
@@ -217,14 +228,15 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
 .label-tag {
     background: var(--border);
     color: var(--text-muted);
-    padding: 0.1rem 0.45rem;
+    padding: 0.15rem 0.5rem;
     border-radius: 20px;
-    font-size: 0.62rem;
+    font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.5px;
 }
@@ -253,21 +265,17 @@ body {
 }
 
 .kpi-value {
-    font-size: 2.4rem;
+    font-size: 2.3rem;
     font-weight: 900;
     color: var(--text);
     letter-spacing: -1px;
-    line-height: 1;
+    line-height: 1.1;
     margin-bottom: 0.4rem;
+    word-break: break-word;
 }
 
-.kpi-value.text-win {
-    color: var(--win);
-}
-
-.kpi-value.text-loss {
-    color: var(--loss);
-}
+.kpi-value.text-win { color: var(--win); }
+.kpi-value.text-loss { color: var(--loss); }
 
 .kpi-value-sm {
     font-size: 1.6rem;
@@ -279,21 +287,15 @@ body {
 .kpi-sub {
     font-size: 0.8rem;
     color: var(--text-muted);
+    line-height: 1.4;
 }
 
 .kpi-sub strong {
     color: var(--text);
 }
 
-.gol-stat {
-    color: var(--text-muted);
-    font-size: 0.8rem;
-}
-
-.gol-sep {
-    color: var(--text-dim);
-    margin: 0 0.2rem;
-}
+.gol-stat { color: var(--text-muted); font-size: 0.8rem; }
+.gol-sep  { color: var(--text-dim); margin: 0 0.2rem; }
 
 /* Campanha Blocks */
 .campanha-blocks {
@@ -310,19 +312,12 @@ body {
     padding: 0.6rem 0.4rem;
     border-radius: var(--radius-sm);
     gap: 0.15rem;
+    min-width: 0;
 }
 
-.campanha-block.win {
-    background: var(--win-bg);
-}
-
-.campanha-block.draw {
-    background: var(--draw-bg);
-}
-
-.campanha-block.loss {
-    background: var(--loss-bg);
-}
+.campanha-block.win   { background: var(--win-bg);  }
+.campanha-block.draw  { background: var(--draw-bg); }
+.campanha-block.loss  { background: var(--loss-bg); }
 
 .block-num {
     font-size: 1.7rem;
@@ -330,17 +325,9 @@ body {
     line-height: 1;
 }
 
-.campanha-block.win .block-num {
-    color: var(--win);
-}
-
-.campanha-block.draw .block-num {
-    color: var(--draw);
-}
-
-.campanha-block.loss .block-num {
-    color: var(--loss);
-}
+.campanha-block.win  .block-num  { color: var(--win);  }
+.campanha-block.draw .block-num  { color: var(--draw); }
+.campanha-block.loss .block-num  { color: var(--loss); }
 
 .block-label {
     font-size: 0.68rem;
@@ -355,9 +342,9 @@ body {
    ========================================================================== */
 .charts-row {
     display: grid;
-    grid-template-columns: 1fr 320px;
+    grid-template-columns: 1fr 340px;
     gap: var(--gap);
-    align-items: start;
+    align-items: stretch;
 }
 
 .chart-main-card {
@@ -373,7 +360,7 @@ body {
 
 .chart-container {
     position: relative;
-    height: 300px;
+    height: 320px;
     width: 100%;
 }
 
@@ -390,19 +377,13 @@ body {
     border-radius: 50%;
 }
 
-.red-dot {
-    background: var(--red-light);
-}
-
-.legend-label {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-}
+.red-dot  { background: var(--red-light); }
+.legend-label { font-size: 0.8rem; color: var(--text-muted); }
 
 /* Donut */
 .donut-wrapper {
     position: relative;
-    height: 160px;
+    height: 170px;
     margin-bottom: 1rem;
 }
 
@@ -417,7 +398,7 @@ body {
 
 .donut-pct {
     display: block;
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     font-weight: 800;
     color: var(--text);
     line-height: 1;
@@ -460,24 +441,16 @@ body {
     flex-shrink: 0;
 }
 
-.win-dot {
-    background: var(--win);
-}
-
-.draw-dot {
-    background: var(--draw);
-}
-
-.loss-dot {
-    background: var(--loss);
-}
+.win-dot  { background: var(--win);  }
+.draw-dot { background: var(--draw); }
+.loss-dot { background: var(--loss); }
 
 /* Forma Recente */
 .forma-badges {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
-    margin-top: 0.4rem;
+    margin-top: 0.5rem;
 }
 
 .forma-badge {
@@ -487,33 +460,19 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 800;
     text-transform: uppercase;
 }
 
-.forma-badge.v {
-    background: var(--win-bg);
-    color: var(--win);
-    border: 1px solid var(--win);
-}
-
-.forma-badge.e {
-    background: var(--draw-bg);
-    color: var(--draw);
-    border: 1px solid var(--draw);
-}
-
-.forma-badge.d {
-    background: var(--loss-bg);
-    color: var(--loss);
-    border: 1px solid var(--loss);
-}
+.forma-badge.v { background: var(--win-bg);  color: var(--win);  border: 1px solid var(--win);  }
+.forma-badge.e { background: var(--draw-bg); color: var(--draw); border: 1px solid var(--draw); }
+.forma-badge.d { background: var(--loss-bg); color: var(--loss); border: 1px solid var(--loss); }
 
 .divider {
     height: 1px;
     background: var(--border);
-    margin: 1rem 0;
+    margin: 1.1rem 0;
 }
 
 .segundo-tempo-row {
@@ -521,6 +480,7 @@ body {
     align-items: baseline;
     gap: 0.6rem;
     margin-top: 0.4rem;
+    flex-wrap: wrap;
 }
 
 /* ==========================================================================
@@ -531,6 +491,7 @@ body {
     align-items: baseline;
     gap: 0.75rem;
     margin-bottom: 1rem;
+    flex-wrap: wrap;
 }
 
 .section-heading h2 {
@@ -548,7 +509,7 @@ body {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     gap: 0;
-    align-items: center;
+    align-items: stretch;
 }
 
 .vs-divider {
@@ -558,10 +519,15 @@ body {
     letter-spacing: 1px;
     text-align: center;
     padding: 0 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .mando-card {
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .mando-top {
@@ -569,22 +535,25 @@ body {
     align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 1.2rem;
+    gap: 0.75rem;
 }
 
 .mando-identity {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    min-width: 0;
 }
 
 .mando-logo {
     width: 40px;
     height: 40px;
     object-fit: contain;
+    flex-shrink: 0;
 }
 
 .mando-logo-away {
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 .mando-label {
@@ -601,23 +570,26 @@ body {
     font-weight: 900;
     color: var(--text);
     letter-spacing: -0.5px;
-    line-height: 1;
+    line-height: 1.1;
 }
 
 .mando-pts-badge {
     background: var(--red-dim);
     color: var(--red-light);
     border: 1px solid rgba(204, 20, 24, 0.3);
-    padding: 0.25rem 0.6rem;
+    padding: 0.25rem 0.65rem;
     border-radius: 20px;
     font-size: 0.75rem;
     font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .mando-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0.5rem;
+    margin-top: auto;
 }
 
 .mstat {
@@ -626,8 +598,9 @@ body {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    padding: 0.5rem 0.6rem;
+    padding: 0.55rem 0.6rem;
     gap: 0.15rem;
+    min-width: 0;
 }
 
 .mstat span {
@@ -636,6 +609,9 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.4px;
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .mstat strong {
@@ -644,59 +620,46 @@ body {
     color: var(--text);
 }
 
-.mstat.win strong {
-    color: var(--win);
-}
+.mstat.win  strong { color: var(--win);  }
+.mstat.draw strong { color: var(--draw); }
+.mstat.loss strong { color: var(--loss); }
 
-.mstat.draw strong {
-    color: var(--draw);
-}
-
-.mstat.loss strong {
-    color: var(--loss);
-}
-
-.text-win {
-    color: var(--win) !important;
-}
-
-.text-loss {
-    color: var(--loss) !important;
-}
+.text-win  { color: var(--win) !important;  }
+.text-loss { color: var(--loss) !important; }
 
 /* ==========================================================================
    Próximas Partidas
    ========================================================================== */
-.proximos-section h2 {
-    margin-bottom: 1rem;
-}
+.proximos-section h2 { margin-bottom: 1rem; }
 
 .proximos-list {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.6rem;
 }
 
 .proximo-item {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 0.75rem;
+    padding: 0.8rem 1rem;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, background-color 0.2s;
+    min-width: 0;
 }
 
 .proximo-item:hover {
     border-color: var(--border-light);
+    background-color: var(--card-hover);
 }
 
 .proximo-rodada {
-    font-size: 0.72rem;
-    font-weight: 700;
+    font-size: 0.75rem;
+    font-weight: 800;
     color: var(--text-muted);
-    width: 28px;
+    width: 32px;
     text-align: center;
     flex-shrink: 0;
 }
@@ -704,32 +667,39 @@ body {
 .proximo-match {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
     flex: 1;
+    min-width: 0;
 }
 
 .proximo-crest {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     object-fit: contain;
+    flex-shrink: 0;
 }
 
 .proximo-vs {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     color: var(--text-dim);
-    font-weight: 600;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .proximo-adversario {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     font-weight: 600;
     color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .proximo-data {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
     flex-shrink: 0;
+    white-space: nowrap;
 }
 
 /* ==========================================================================
@@ -741,17 +711,19 @@ body {
 
 .table-responsive {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.9rem;
+    min-width: 580px;
 }
 
-th,
-td {
-    padding: 0.8rem 1rem;
+th, td {
+    padding: 0.85rem 1rem;
     border-bottom: 1px solid var(--border);
     text-align: left;
     white-space: nowrap;
@@ -770,33 +742,26 @@ tbody tr {
     transition: background 0.15s;
 }
 
-tbody tr:hover {
-    background: var(--card-hover);
-}
-
-tbody tr:last-child td {
-    border-bottom: none;
-}
+tbody tr:hover { background: var(--card-hover); }
+tbody tr:last-child td { border-bottom: none; }
 
 .rodada-num {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: var(--text-muted);
     font-weight: 700;
 }
 
-.text-muted {
-    color: var(--text-muted);
-}
+.text-muted { color: var(--text-muted); }
 
 .adversario-cell {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.65rem;
 }
 
 .crest-sm {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     object-fit: contain;
     flex-shrink: 0;
 }
@@ -833,12 +798,10 @@ tbody tr:last-child td {
     cursor: pointer;
     transition: all 0.15s;
     font-family: inherit;
+    white-space: nowrap;
 }
 
-.tab:hover {
-    color: var(--text);
-    background: var(--border);
-}
+.tab:hover { color: var(--text); background: var(--border); }
 
 .tab.active {
     background: var(--red);
@@ -847,11 +810,13 @@ tbody tr:last-child td {
 
 /* Badges */
 .badge-mando {
-    padding: 0.2rem 0.55rem;
+    padding: 0.25rem 0.6rem;
     border-radius: 6px;
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.3px;
+    display: inline-block;
+    white-space: nowrap;
 }
 
 .badge-mando.casa {
@@ -872,101 +837,231 @@ tbody tr:last-child td {
     font-size: 0.75rem;
     font-weight: 700;
     display: inline-block;
+    white-space: nowrap;
 }
 
-.badge-res.v {
-    background: var(--win-bg);
-    color: var(--win);
-    border: 1px solid rgba(22, 163, 74, 0.3);
-}
-
-.badge-res.e {
-    background: var(--draw-bg);
-    color: var(--draw);
-    border: 1px solid rgba(217, 119, 6, 0.3);
-}
-
-.badge-res.d {
-    background: var(--loss-bg);
-    color: var(--loss);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-}
-
-.badge-res.pendente {
-    background: var(--border);
-    color: var(--text-muted);
-}
+.badge-res.v       { background: var(--win-bg);  color: var(--win);  border: 1px solid rgba(22,163,74,0.3);  }
+.badge-res.e       { background: var(--draw-bg); color: var(--draw); border: 1px solid rgba(217,119,6,0.3);  }
+.badge-res.d       { background: var(--loss-bg); color: var(--loss); border: 1px solid rgba(220,38,38,0.3);  }
+.badge-res.pendente { background: var(--border);  color: var(--text-muted); }
 
 /* ==========================================================================
-   Responsividade
+   RESPONSIVIDADE / MEDIA QUERIES
    ========================================================================== */
+
+/* Tablet & Telas médias (<= 1024px) */
 @media (max-width: 1024px) {
+    .container {
+        padding: 0 1.25rem;
+    }
+
     .kpi-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
     }
 
     .charts-row {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
     }
 
     .charts-side {
         display: grid;
         grid-template-columns: 1fr 1fr;
-    }
-
-    .mando-stats {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;
-        align-items: flex-start;
         gap: 1rem;
     }
 
-    .header-meta {
-        align-self: flex-start;
-    }
-
-    .kpi-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .charts-side {
-        grid-template-columns: 1fr;
+    .chart-container {
+        height: 280px;
     }
 
     .mando-grid {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
     }
 
     .vs-divider {
-        padding: 0.5rem 0;
-        font-size: 0.8rem;
+        padding: 0.25rem 0;
+        font-size: 0.85rem;
     }
 
     .mando-stats {
         grid-template-columns: repeat(4, 1fr);
     }
+}
 
-    th,
-    td {
-        padding: 0.65rem 0.75rem;
+/* Tablets pequenos & Celulares em paisagem (<= 768px) */
+@media (max-width: 768px) {
+    :root {
+        --gap: 1rem;
+    }
+
+    body {
+        padding-bottom: 2.5rem;
+    }
+
+    .header {
+        padding: 1rem 0;
+        margin-bottom: 1.25rem;
+    }
+
+    .header-content {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .header-brand {
+        gap: 0.85rem;
+    }
+
+    .team-logo {
+        width: 48px;
+        height: 48px;
+    }
+
+    .header-text h1 {
+        font-size: 1.2rem;
+    }
+
+    .header-subtitle {
+        font-size: 0.75rem;
+    }
+
+    .header-meta {
+        justify-content: space-around;
+        padding: 0.65rem 1rem;
+        width: 100%;
+    }
+
+    .meta-value {
+        font-size: 1.4rem;
+    }
+
+    .kpi-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.85rem;
+    }
+
+    .card {
+        padding: 1.1rem;
+    }
+
+    .kpi-value {
+        font-size: 1.9rem;
+    }
+
+    .charts-side {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .mando-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .proximo-item {
+        padding: 0.7rem 0.85rem;
+        gap: 0.75rem;
+    }
+
+    .proximo-adversario {
+        font-size: 0.85rem;
+    }
+
+    .proximo-data {
+        font-size: 0.75rem;
+    }
+
+    .tab-group {
+        width: 100%;
+    }
+
+    .tab {
+        flex: 1;
+        text-align: center;
+        padding: 0.45rem 0.5rem;
     }
 }
 
-@media (max-width: 480px) {
+/* Celulares (<= 540px) */
+@media (max-width: 540px) {
+    .container {
+        padding: 0 0.85rem;
+    }
+
     .kpi-grid {
         grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .card-label {
+        font-size: 0.68rem;
+    }
+
+    .kpi-value {
+        font-size: 1.8rem;
+    }
+
+    .campanha-blocks {
+        gap: 0.45rem;
+    }
+
+    .block-num {
+        font-size: 1.45rem;
+    }
+
+    .block-label {
+        font-size: 0.62rem;
+    }
+
+    .chart-container {
+        height: 240px;
+    }
+
+    .donut-wrapper {
+        height: 150px;
+    }
+
+    .forma-badge {
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
     }
 
     .mando-stats {
         grid-template-columns: repeat(2, 1fr);
+        gap: 0.4rem;
     }
 
-    .campanha-blocks {
-        gap: 0.4rem;
+    .mstat {
+        padding: 0.45rem 0.5rem;
+    }
+
+    .mstat strong {
+        font-size: 0.95rem;
+    }
+
+    .proximo-item {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .proximo-rodada {
+        width: auto;
+    }
+
+    .proximo-match {
+        flex: 1 1 100%;
+        order: 2;
+    }
+
+    .proximo-data {
+        margin-left: auto;
+        order: 1;
+    }
+
+    .badge-mando {
+        order: 1;
     }
 }

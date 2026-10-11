@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard — EC Vitória</title>
+    <title>EC Vitória — Painel de Desempenho</title>
+    <link rel="icon" type="image/png" href="https://crests.football-data.org/1782.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 </head>
@@ -15,8 +16,10 @@
     <header class="header">
         <div class="container header-content">
             <div class="header-brand">
-                <img src="https://crests.football-data.org/1782.png" alt="EC Vitória" class="team-logo"
-                    onerror="this.style.display='none'">
+                <img src="https://crests.football-data.org/1782.png"
+                     alt="EC Vitória"
+                     class="team-logo"
+                     onerror="this.style.display='none'">
                 <div class="header-text">
                     <span class="header-competition">BRASILEIRÃO · SÉRIE A · 2026</span>
                     <h1>Painel de Desempenho</h1>
@@ -54,8 +57,7 @@
             <!-- Campanha -->
             <div class="card">
                 <div class="card-label">CAMPANHA
-                    <span class="label-tag">{{ $resumo['kpis']['vitorias'] }}V · {{ $resumo['kpis']['empates'] }}E ·
-                        {{ $resumo['kpis']['derrotas'] }}D</span>
+                    <span class="label-tag">{{ $resumo['kpis']['vitorias'] }}V · {{ $resumo['kpis']['empates'] }}E · {{ $resumo['kpis']['derrotas'] }}D</span>
                 </div>
                 <div class="campanha-blocks">
                     <div class="campanha-block win">
@@ -165,8 +167,7 @@
                     <div class="card-label">GOLS NO 2º TEMPO</div>
                     <div class="segundo-tempo-row">
                         <span class="kpi-value-sm">{{ $resumo['segundo_tempo']['gols_2t'] }}</span>
-                        <span class="kpi-sub">gols ({{ $resumo['segundo_tempo']['percentual_gols_2t'] }}% do total
-                            marcado)</span>
+                        <span class="kpi-sub">gols ({{ $resumo['segundo_tempo']['percentual_gols_2t'] }}% do total marcado)</span>
                     </div>
                 </div>
 
@@ -186,8 +187,10 @@
                 <div class="card mando-card">
                     <div class="mando-top">
                         <div class="mando-identity">
-                            <img src="https://crests.football-data.org/1782.png" alt="Vitória" class="mando-logo"
-                                onerror="this.style.display='none'">
+                            <img src="https://crests.football-data.org/1782.png"
+                                 alt="Vitória"
+                                 class="mando-logo"
+                                 onerror="this.style.display='none'">
                             <div>
                                 <div class="mando-label">Em casa</div>
                                 <div class="mando-pct">{{ $resumo['mando']['casa']['aproveitamento'] }}%</div>
@@ -237,8 +240,10 @@
                 <div class="card mando-card">
                     <div class="mando-top">
                         <div class="mando-identity">
-                            <img src="https://crests.football-data.org/1782.png" alt="Vitória"
-                                class="mando-logo mando-logo-away" onerror="this.style.display='none'">
+                            <img src="https://crests.football-data.org/1782.png"
+                                 alt="Vitória"
+                                 class="mando-logo mando-logo-away"
+                                 onerror="this.style.display='none'">
                             <div>
                                 <div class="mando-label">Como visitante</div>
                                 <div class="mando-pct">{{ $resumo['mando']['fora']['aproveitamento'] }}%</div>
@@ -285,31 +290,35 @@
         </section>
 
         <!-- ===== PRÓXIMAS PARTIDAS ===== -->
-        @if ($proximosJogos->count() > 0)
-            <section class="card proximos-section">
-                <h2>Próximas Partidas</h2>
-                <div class="proximos-list">
-                    @foreach ($proximosJogos as $jogo)
-                        <div class="proximo-item">
-                            <span class="proximo-rodada">R{{ $jogo->rodada }}</span>
-                            <div class="proximo-match">
-                                <img src="https://crests.football-data.org/1782.png" alt="Vitória"
-                                    class="proximo-crest" onerror="this.style.display='none'">
-                                <span class="proximo-vs">{{ $jogo->mando === 'CASA' ? 'vs' : 'em' }}</span>
-                                @if ($jogo->adversario_escudo)
-                                    <img src="{{ $jogo->adversario_escudo }}" alt="{{ $jogo->adversario }}"
-                                        class="proximo-crest" onerror="this.style.display='none'">
-                                @endif
-                                <span class="proximo-adversario">{{ $jogo->adversario }}</span>
-                            </div>
-                            <span class="badge-mando {{ strtolower($jogo->mando) }}">
-                                {{ $jogo->mando === 'CASA' ? 'Casa' : 'Fora' }}
-                            </span>
-                            <span class="proximo-data">{{ $jogo->data_jogo->format('d/m · H:i') }}</span>
-                        </div>
-                    @endforeach
+        @if($proximosJogos->count() > 0)
+        <section class="card proximos-section">
+            <h2>Próximas Partidas</h2>
+            <div class="proximos-list">
+                @foreach($proximosJogos as $jogo)
+                <div class="proximo-item">
+                    <span class="proximo-rodada">R{{ $jogo->rodada }}</span>
+                    <div class="proximo-match">
+                        <img src="https://crests.football-data.org/1782.png"
+                             alt="Vitória"
+                             class="proximo-crest"
+                             onerror="this.style.display='none'">
+                        <span class="proximo-vs">{{ $jogo->mando === 'CASA' ? 'vs' : 'em' }}</span>
+                        @if($jogo->adversario_escudo)
+                        <img src="{{ $jogo->adversario_escudo }}"
+                             alt="{{ $jogo->adversario }}"
+                             class="proximo-crest"
+                             onerror="this.style.display='none'">
+                        @endif
+                        <span class="proximo-adversario">{{ $jogo->adversario }}</span>
+                    </div>
+                    <span class="badge-mando {{ strtolower($jogo->mando) }}">
+                        {{ $jogo->mando === 'CASA' ? 'Casa' : 'Fora' }}
+                    </span>
+                    <span class="proximo-data">{{ $jogo->data_jogo->format('d/m · H:i') }}</span>
                 </div>
-            </section>
+                @endforeach
+            </div>
+        </section>
         @endif
 
         <!-- ===== HISTÓRICO DE PARTIDAS ===== -->
@@ -338,57 +347,59 @@
                     </thead>
                     <tbody>
                         @forelse($jogos as $jogo)
-                            <tr data-mando="{{ strtolower($jogo->mando) }}">
-                                <td><strong class="rodada-num">R{{ $jogo->rodada }}</strong></td>
-                                <td class="text-muted">{{ $jogo->data_jogo->format('d/m') }}</td>
-                                <td>
-                                    <span class="badge-mando {{ strtolower($jogo->mando) }}">
-                                        {{ $jogo->mando === 'CASA' ? 'Casa' : 'Fora' }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="adversario-cell">
-                                        @if ($jogo->adversario_escudo)
-                                            <img src="{{ $jogo->adversario_escudo }}" alt="{{ $jogo->adversario }}"
-                                                class="crest-sm" onerror="this.style.display='none'">
-                                        @endif
-                                        <span>{{ $jogo->adversario }}</span>
-                                    </div>
-                                </td>
-                                <td class="placar-cell">
-                                    @if ($jogo->status === 'FINISHED')
-                                        <strong>
-                                            {{ $jogo->mando === 'CASA' ? $jogo->gols_pro_total : $jogo->gols_contra_total }}
-                                            ×
-                                            {{ $jogo->mando === 'CASA' ? $jogo->gols_contra_total : $jogo->gols_pro_total }}
-                                        </strong>
-                                    @else
-                                        <span class="text-muted">—</span>
+                        <tr data-mando="{{ strtolower($jogo->mando) }}">
+                            <td><strong class="rodada-num">R{{ $jogo->rodada }}</strong></td>
+                            <td class="text-muted">{{ $jogo->data_jogo->format('d/m') }}</td>
+                            <td>
+                                <span class="badge-mando {{ strtolower($jogo->mando) }}">
+                                    {{ $jogo->mando === 'CASA' ? 'Casa' : 'Fora' }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="adversario-cell">
+                                    @if($jogo->adversario_escudo)
+                                    <img src="{{ $jogo->adversario_escudo }}"
+                                         alt="{{ $jogo->adversario }}"
+                                         class="crest-sm"
+                                         onerror="this.style.display='none'">
                                     @endif
-                                </td>
-                                <td class="text-muted">
-                                    @if ($jogo->gols_pro_1t !== null)
-                                        {{ $jogo->mando === 'CASA' ? $jogo->gols_pro_1t : $jogo->gols_contra_1t }}
+                                    <span>{{ $jogo->adversario }}</span>
+                                </div>
+                            </td>
+                            <td class="placar-cell">
+                                @if($jogo->status === 'FINISHED')
+                                    <strong>
+                                        {{ $jogo->mando === 'CASA' ? $jogo->gols_pro_total : $jogo->gols_contra_total }}
                                         ×
-                                        {{ $jogo->mando === 'CASA' ? $jogo->gols_contra_1t : $jogo->gols_pro_1t }}
-                                    @else
-                                        —
-                                    @endif
-                                </td>
-                                <td>
-                                    @if ($jogo->resultado)
-                                        <span class="badge-res {{ strtolower($jogo->resultado) }}">
-                                            {{ $jogo->resultado === 'V' ? 'Vitória' : ($jogo->resultado === 'E' ? 'Empate' : 'Derrota') }}
-                                        </span>
-                                    @else
-                                        <span class="badge-res pendente">Agendado</span>
-                                    @endif
-                                </td>
-                            </tr>
+                                        {{ $jogo->mando === 'CASA' ? $jogo->gols_contra_total : $jogo->gols_pro_total }}
+                                    </strong>
+                                @else
+                                    <span class="text-muted">—</span>
+                                @endif
+                            </td>
+                            <td class="text-muted">
+                                @if($jogo->gols_pro_1t !== null)
+                                    {{ $jogo->mando === 'CASA' ? $jogo->gols_pro_1t : $jogo->gols_contra_1t }}
+                                    ×
+                                    {{ $jogo->mando === 'CASA' ? $jogo->gols_contra_1t : $jogo->gols_pro_1t }}
+                                @else
+                                    —
+                                @endif
+                            </td>
+                            <td>
+                                @if($jogo->resultado)
+                                    <span class="badge-res {{ strtolower($jogo->resultado) }}">
+                                        {{ $jogo->resultado === 'V' ? 'Vitória' : ($jogo->resultado === 'E' ? 'Empate' : 'Derrota') }}
+                                    </span>
+                                @else
+                                    <span class="badge-res pendente">Agendado</span>
+                                @endif
+                            </td>
+                        </tr>
                         @empty
-                            <tr>
-                                <td colspan="7" class="empty-state">Nenhum jogo cadastrado.</td>
-                            </tr>
+                        <tr>
+                            <td colspan="7" class="empty-state">Nenhum jogo cadastrado.</td>
+                        </tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -399,7 +410,7 @@
 
     <script>
         window.chartData = @json($resumo['grafico']);
-        window.kpiData = @json($resumo['kpis']);
+        window.kpiData   = @json($resumo['kpis']);
     </script>
     <script src="{{ asset('js/dashboard.js') }}"></script>
 </body>
