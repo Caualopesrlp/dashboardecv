@@ -11,11 +11,15 @@ class DashboardController extends Controller
     public function index(DesempenhoTimeService $service, JogoRepository $repository)
     {
         $resumo = $service->obterResumoDashboard();
-        $jogos = $repository->obterTodosOsJogos();
+
+        $todosJogos    = $repository->obterTodosOsJogos();
+        $jogos         = $todosJogos->whereIn('status', ['FINISHED', 'PAUSED'])->sortByDesc('rodada');
+        $proximosJogos = $todosJogos->whereNotIn('status', ['FINISHED', 'PAUSED'])->sortBy('rodada')->take(5);
 
         return view('dashboard', [
-            'resumo' => $resumo,
-            'jogos' => $jogos
+            'resumo'        => $resumo,
+            'jogos'         => $jogos,
+            'proximosJogos' => $proximosJogos,
         ]);
     }
 }
