@@ -12,6 +12,12 @@
   <img width="100%" alt="EC Vitória Dashboard Demo" src="https://github.com/user-attachments/assets/8336ed85-2970-4a1b-b0e2-da6bd179f92e" />
 </div>
 
+<div align="center">
+  <a href="https://dashboardecv.onrender.com" target="_blank">
+    <img src="https://img.shields.io/badge/Acessar_Dashboard_Ao_Vivo-E50914?style=for-the-badge&logo=render&logoColor=white" alt="Acessar Dashboard Online" />
+  </a>
+  <p><sub><em>⚠️ Nota: O projeto está hospedado no plano gratuito do Render. Caso esteja em hibernação por inatividade, a aplicação pode levar de 30 a 50 segundos para inicializar no primeiro acesso.</em></sub></p>
+</div>
 
 ---
 
@@ -20,8 +26,6 @@
 Este dashboard foi desenvolvido com o objetivo de transformar os dados brutos das partidas do Vitória em indicadores visuais, dinâmicos e acionáveis para análise esportiva.
 
 A solução consome a **Football-Data API v4**, processa e persiste os dados no banco SQLite local através de comandos automatizados no **Artisan CLI** (agendados via **Laravel Task Scheduler**) e renderiza um painel executivo com métricas consolidadas, tabela de classificação atualizada, retrospecto de confrontos diretos (H2H) e gráficos interativos.
-
----
 
 ## 💡 Inspiração & Créditos
 
@@ -32,8 +36,6 @@ Este projeto foi **totalmente inspirado** no trabalho de [Pablo Melo](https://gi
 - 👤 **GitHub do autor:** [@pablohmelo02](https://github.com/pablohmelo02)
 
 Todo o crédito pela ideia e pela abordagem inicial vai para ele. 👏
-
----
 
 ## 🚀 Funcionalidades & Insights Entregues
 
@@ -60,8 +62,6 @@ Todo o crédito pela ideia e pela abordagem inicial vai para ele. 👏
   - **Próximas Partidas:** Lista cronológica dos próximos compromissos, com datas/horários convertidos para o fuso local (`America/Bahia`) ou marcados como "A definir" quando não detalhados pela CBF.
   - **Histórico Completo:** Tabela interativa com filtros em JS puro por mando de campo (*Todos*, *Em casa*, *Fora*).
 
----
-
 ## 🛠️ Tecnologias & Padrões Arquiteturais
 
 ### Backend (Laravel 11 & PHP 8.2+)
@@ -83,7 +83,11 @@ Todo o crédito pela ideia e pela abordagem inicial vai para ele. 👏
 - **Chart.js:** Gráficos interativos renderizados via Canvas.
 - **Vanilla JavaScript:** Filtros e manipuladores de DOM leves no cliente.
 
----
+### Infraestrutura & DevOps (Docker & Cloud)
+
+- **Containerization:** `Dockerfile` customizado com imagem base PHP 8.2 CLI, SQLite3 e Composer isolados em ambiente produtivo.
+- **Cloud Hosting:** Deploy contínuo (CI/CD) integrado ao **Render** via webhooks do GitHub.
+- **Auto-Initialization:** Script de boot no contêiner que executa automigrações, recarrega caches de ambiente e executa a coleta inicial dos dados da API.
 
 ## 📂 Estrutura do Repositório
 
@@ -125,10 +129,10 @@ dashboardecv/
 ├── routes/
 │   ├── console.php                       # Agendamento das tarefas (Scheduler)
 │   └── web.php                           # Rotas web do sistema
-└── tests/                                # Suíte de testes automatizados
+├── tests/                                # Suíte de testes automatizados
+├── Dockerfile                            # Receita de conteinerização do ambiente PHP + SQLite
+└── README.md
 ```
-
----
 
 ## 💻 Como Rodar o Projeto Localmente
 
@@ -142,53 +146,53 @@ dashboardecv/
 
 1. **Clonar o repositório:**
 
-```bash
+   ```bash
    git clone https://github.com/SEU_USUARIO/dashboardecv.git
    cd dashboardecv
-```
+   ```
 
 2. **Instalar as dependências:**
 
-```bash
+   ```bash
    composer install
-```
+   ```
 
 3. **Configurar as variáveis de ambiente:**
 
-```bash
+   ```bash
    cp .env.example .env
-```
+   ```
 
    Abra o arquivo `.env` e insira a sua chave da API:
 
-```env
+   ```env
    FOOTBALL_DATA_API_KEY=sua_chave_aqui
-```
+   ```
 
 4. **Executar as migrações do banco de dados:**
 
-```bash
+   ```bash
    php artisan migrate
-```
+   ```
 
 5. **Sincronizar os dados com a API** (jogos, tabela e H2H inicial):
 
-```bash
+   ```bash
    php artisan jogos:coletar
    php artisan classificacao:coletar
    php artisan confrontos:coletar
-```
+   ```
 
 6. **Rodar a suíte de testes (opcional):**
 
-```bash
+   ```bash
    php artisan test
-```
+   ```
 
 7. **Iniciar o servidor local:**
 
-```bash
+   ```bash
    php artisan serve
-```
+   ```
 
    Acesse a aplicação no navegador em: `http://localhost:8000`
