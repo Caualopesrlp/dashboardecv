@@ -29,6 +29,8 @@ EXPOSE 10000
 
 # Script de inicialização (cria o banco, roda as migrations, coletores e sobe o servidor)
 CMD touch database/database.sqlite \
+ && php artisan config:clear \
+ && php artisan config:cache \
  && php artisan migrate --force \
  && php artisan jogos:coletar \
  && php artisan classificacao:coletar \
